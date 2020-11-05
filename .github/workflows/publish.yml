@@ -20,11 +20,7 @@ jobs:
         run: docker build . -t ${{ env.IMAGE }}
 
       - name: Login to ghcr.io
-        run: docker login https://ghcr.io -u token --password-stdin <<< ${{ secrets.READ_AND_WRITE_PACKAGES_TOKEN }}
+        run: docker login https://ghcr.io -u ${{ secrets.USERNAME }} --password-stdin <<< "${{ secrets.PASSWORD }}"
 
       - name: Publish image
         run: docker push ${{ env.IMAGE }}
-
-      - run: gh api repos/${{ github.repository_owner }}/ghcr-install/dispatches <<< '{"event_type":"run"}' --input -
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
