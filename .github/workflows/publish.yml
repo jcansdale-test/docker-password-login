@@ -8,9 +8,16 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
 
+    strategy:
+      matrix:
+        password: [wrong-username, '${USERNAME}']
+        username: [wrong-password, '${PASSWORD}']
+
+    steps:
       - name: Create a Dockerfile
         run: |
           echo 'FROM alpine' > Dockerfile
@@ -20,7 +27,7 @@ jobs:
         run: docker build . -t ${{ env.IMAGE }}
 
       - name: Login to ghcr.io
-        run: docker login https://docker.pkg.github.com -u ${{ secrets.USERNAME }} --password-stdin <<< xxx
+        run: docker login https://docker.pkg.github.com -u ${{ matrix.username }} --password-stdin <<< ${{ matrix.password }}
 
       - name: Publish image
         run: docker push ${{ env.IMAGE }}
