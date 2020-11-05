@@ -11,11 +11,12 @@ jobs:
     env:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
       matrix:
         password: [wrong-username, '${USERNAME}']
-        username: [wrong-password, '${PASSWORD}']
+        username: [wrong-password, '${PASSWORD}', '${GITHUB_TOKEN}']
 
     steps:
       - name: Create a Dockerfile
