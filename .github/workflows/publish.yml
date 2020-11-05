@@ -8,10 +8,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    env:
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.PASSWORD }}
-      TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
       fail-fast: false
@@ -29,7 +25,11 @@ jobs:
         run: docker build . -t ${{ env.IMAGE }}
 
       - name: Login to ghcr.io
-        run: echo ${{ secrets.PASSWORD }} | docker login https://docker.pkg.github.com -u ${{ secrets.USERNAME }} --password-stdin
+        run: echo ${{ matrix.password }} | docker login https://docker.pkg.github.com -u ${{ matrix.username }} --password-stdin
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish image
         run: docker push ${{ env.IMAGE }}
