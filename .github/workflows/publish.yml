@@ -15,8 +15,8 @@ jobs:
 
     strategy:
       matrix:
-        password: [wrong-username, '${USERNAME}']
-        username: [wrong-password, '${PASSWORD}', '${GITHUB_TOKEN}']
+        password: [wrong-username, "${USERNAME}"]
+        username: [wrong-password, "${PASSWORD}", "${GITHUB_TOKEN}"]
 
     steps:
       - name: Create a Dockerfile
