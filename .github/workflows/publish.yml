@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        password: [wrong-username, "${USERNAME}"]
-        username: [wrong-password, "${PASSWORD}", "${TOKEN}"]
+        password: [wrong-username, "$USERNAME"]
+        username: [wrong-password, "$PASSWORD", "$TOKEN"]
 
     steps:
       - name: Create a Dockerfile
