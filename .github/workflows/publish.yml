@@ -2,7 +2,7 @@ on:
   push:
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}:latest
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/image:latest
 
 jobs:
   publish:
