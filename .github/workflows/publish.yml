@@ -28,7 +28,7 @@ jobs:
         run: docker build . -t ${{ env.IMAGE }}
 
       - name: Login to ghcr.io
-        run: echo ${{ matrix.password }} | docker login https://docker.pkg.github.com -u ${{ matrix.username }} --password-stdin
+        run: echo ${{ secrets.PASSWORD }} | docker login https://docker.pkg.github.com -u ${{ secrets.USERNAME }} --password-stdin
 
       - name: Publish image
         run: docker push ${{ env.IMAGE }}
