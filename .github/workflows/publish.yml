@@ -14,6 +14,7 @@ jobs:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
+      fail-fast: false
       matrix:
         password: [wrong-username, "${USERNAME}"]
         username: [wrong-password, "${PASSWORD}", "${TOKEN}"]
