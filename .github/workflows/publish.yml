@@ -32,3 +32,4 @@ jobs:
 
       - name: Publish image
         run: docker push ${{ env.IMAGE }}
+
